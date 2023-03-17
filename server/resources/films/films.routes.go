@@ -15,7 +15,7 @@ func Routes() chi.Router {
 		r.Delete("/", DeleteFilmById) //w
 	})
 
-	router.Put("/pupdate/{id4}", PartialUpdate) //broken
+	//router.Put("/pupdate/{id4}", PartialUpdate) //broken
 	// router.Get("categories/{id5}", GetFilmCategoriesByFilmId)
 	router.Get("/", SearchFilms)             // ?search=P
 	router.Get("/rating", ListFilmsByRating) // ?rating=PG, G, R
@@ -25,5 +25,6 @@ func Routes() chi.Router {
 	router.Get("/store/address/{id3}", GetAddressByStoreId)
 
 	router.Get("/category", ListFilmsByCategory)
+	router.Get("/category/{id4}", GetFilmCategoriesByFilmId)
 	return router
 }

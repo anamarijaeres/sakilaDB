@@ -199,15 +199,26 @@ func ListFilmsByCategory(w http.ResponseWriter, r *http.Request) {
 	render.RenderList(w, r, m.NewFilmListResponse(films))
 }
 
-// func GetFilmCategoriesByFilmId(w http.ResponseWriter, r *http.Request) {
-// 	var categories []*m.Category
+func GetFilmCategoriesByFilmId(w http.ResponseWriter, r *http.Request) {
+	var categories []*m.Category
+	var film_category []*m.FilmCategory
 
-// 	filmID := chi.URLParam(r, "id4")
+	filmID := chi.URLParam(r, "id4")
 
-// 	log.Print(filmID)
+	log.Print(filmID)
 
-// 	db.DB.Where("film_id = ?", filmID).Find(&category)
+	db.DB.Where("film_id = ?", filmID).Find(&film_category)
 
-// 	db.DB.Where("category_id = ?", category.CategoryId).Find(&filmcategory)
+	log.Print(film_category)
+	for _, c := range film_category {
+		var category *m.Category
 
-// }
+		db.DB.Where("category_id = ?", c.CategoryId).Find(&category)
+
+		categories = append(categories, category)
+
+	}
+
+	render.RenderList(w, r, m.NewCategoryListResponse(categories))
+
+}
